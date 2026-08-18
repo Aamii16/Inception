@@ -36,6 +36,8 @@
 - **Control Groups / cgroups (The Limiter):** A Linux kernel feature that places a hard ceiling on a container's CPU and RAM usage so it doesn't crash the host machine.  
 - **Writeable Layer:** A thin, temporary storage layer Docker drops on top of the read-only image the millisecond a container boots. This lets the running app save temporary files or logs without altering the underlying frozen image. [33, 34, 35, 36, 37]
 
+Control groups (cgroups) are a core Linux kernel feature that limit, measure, and isolate the resource usage (CPU, memory, disk I/O, and network bandwidth) of a collection of processes. In container technology, while namespaces dictate what a process can see, cgroups dictate how much of the system's physical resources that process can use
+
 ------------------------------
 
 [1]: https://medium.com/data-science-collective/n8n-free-local-ai-agent-with-ollama-82d70c1915f2
