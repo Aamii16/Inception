@@ -89,3 +89,10 @@ When you stop a container:
 * **Easy Distribution:** Docker Hub only transmits missing layers during pushes and pulls.
 
 > **Note:** Because every instruction in a `Dockerfile` adds a new layer, poorly written files can lead to bloated images full of unnecessary temporary files. Modern Dockerfiles utilize **multi-stage builds** to strip away build-time dependencies and keep the final image lean and secure.
+### 💡 Deep Dive: Multi-Stage Builds & Image Bloat
+
+* **The Layer Problem:** Every instruction (`RUN`, `COPY`, `ADD`) in a `Dockerfile` creates a permanent layer. If you use heavy compilers or build tools (like Node.js, Go SDKs, or GCC) to compile your app, those massive tools get permanently baked into your final image, making it bloated, slow to transfer, and a security risk.
+* **The Multi-Stage Solution:** Modern Dockerfiles use **multi-stage builds** (multiple `FROM` statements) to split the process into two phases:
+  1. **The Workshop (Build Stage):** A heavy environment where you install all compilers and source code to build your application.
+  2. **The Production Stage:** A brand-new, ultra-lean base image where you use `COPY --from=builder` to pull *only* the final compiled binary or assets, leaving all the heavy build tools behind.
+* **Why It Matters:** This dramatically shrinks image sizes, speeds up deployments, and tightens security by reducing your application's attack surface.
