@@ -1,7 +1,14 @@
 # Inception: The Inner Workings of Docker
 
-Welcome to the definitive guide on Docker. This document breaks down core definitions, the mechanics of how code becomes a container, and the foundational Linux technologies that make containerization possible.
+---
 
+## 🔗 Containerization: A Practical Introduction
+
+System administration is all about managing, configuring, and securing servers to make sure services run reliably and safely. Traditionally, a sysadmin had to install and run everything—web servers, databases, and application code—directly on the same operating system, which often led to messy dependency conflicts, security vulnerabilities, and server crashes.
+
+Containerization solves this problem by acting as a modern sysadmin tool that packages an application and its entire environment into isolated, portable units. Instead of managing a single shared system, administrators use tools like Docker to give each service its own dedicated space with strict resource and security limits.
+
+This approach directly shapes the *Inception* project. Throughout the project, you will use these principles to build a reliable web infrastructure from scratch: running Nginx, WordPress, and MariaDB in separate isolated containers, using Docker volumes to safely persist your website data, connecting the services together over private networks, and orchestrating the entire stack declaratively with Docker Compose.
 ---
 
 ## 🌟 Core Definitions
