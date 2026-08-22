@@ -8,7 +8,11 @@ System administration is all about managing, configuring, and securing servers t
 
 Containerization solves this problem by acting as a modern sysadmin tool that packages an application and its entire environment into isolated, portable units. Instead of managing a single shared system, administrators use tools like Docker to give each service its own dedicated space with strict resource and security limits.
 
-This approach directly shapes the *Inception* project. Throughout the project, you will use these principles to build a reliable web infrastructure from scratch: running Nginx, WordPress, and MariaDB in separate isolated containers, using Docker volumes to safely persist your website data, connecting the services together over private networks, and orchestrating the entire stack declaratively with Docker Compose.
+. Containerized Infrastructure (The Modern DevOps/Docker Era)
+What it is: Instead of virtualizing whole operating systems, you virtualize processes and environments using Docker.
+The SysAdmin job: You are no longer just installing software on a computer; you are architecting an ecosystem where multiple mini-environments (containers) talk to each other securely over virtual networks, use persistent storage volumes, and act as a unified system
+
+This approach directly shapes the Inception project. Throughout the project, you will use these principles to build a reliable web infrastructure from scratch: running Nginx, WordPress, and MariaDB in separate isolated containers, using Docker volumes to safely persist your website data, connecting the services together over private networks, and orchestrating the entire stack declaratively with Docker Compose.
 ---
 
 ## 🌟 Core Definitions
