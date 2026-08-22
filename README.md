@@ -1,4 +1,4 @@
-# Inception: The Inner Workings of Docker
+# Inception:
 
 ---
 
