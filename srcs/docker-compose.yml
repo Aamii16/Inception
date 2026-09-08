@@ -40,6 +40,24 @@ services:
     secrets:
       - db_password
     restart: always
+  
+  redis:
+    container_name: redis
+    build: ./bonus/redis
+    networks:
+      - inception
+    restart: always
+
+  adminer:
+    container_name: adminer
+    build: ./bonus/adminer
+    ports:
+      - 8080:8080
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    restart: always
 
 volumes:
   wordpress_data:

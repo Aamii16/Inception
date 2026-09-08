@@ -1,5 +1,5 @@
 #!/bin/bash
-
+WP_PATH="/var/www/html/wordpress"
 if [ -f /var/www/html/wordpress/wp-config.php ]
 then
 	echo "wp already exist"
@@ -19,11 +19,10 @@ else
 	sed -i "s|define( 'ABSPATH', .* );|define( 'ABSPATH', 'wordpress/' );|" wordpress/wp-config.php
 
 	mv wordpress /var/www/html/
-	chown -R www-data:www-data /var/www/html/wordpress	
+	chown -R www-data:www-data /var/www/html/wordpress
 fi
 
 
-WP_PATH="/var/www/html/wordpress"
 if ! wp core is-installed \
 	--path="$WP_PATH" \
     --allow-root >/dev/null 2>&1
@@ -48,6 +47,15 @@ then
 	    --allow-root
 else
     echo "WordPress is already installed"
+fi
+
+if ! wp plugin is-installed redis-cache --path="$WP_PATH" --allow-root
+then
+	echo "Installing and configuring redis..."
+    wp plugin install redis-cache --activate --path="$WP_PATH" --allow-root
+    wp config set WP_REDIS_HOST redis --path="$WP_PATH" --allow-root
+    wp config set WP_REDIS_PORT 6379 --path="$WP_PATH" --allow-root
+    wp redis enable --path="$WP_PATH" --allow-root
 fi
 
 exec php-fpm8.2 -F
