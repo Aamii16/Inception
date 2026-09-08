@@ -22,4 +22,32 @@ else
 	chown -R www-data:www-data /var/www/html/wordpress	
 fi
 
+
+WP_PATH="/var/www/html/wordpress"
+if ! wp core is-installed \
+	--path="$WP_PATH" \
+    --allow-root >/dev/null 2>&1
+then
+    echo "Installing WordPress..."
+
+    wp core install \
+        --path="$WP_PATH" \
+        --url="https://$DOMAIN_NAME" \
+        --title="WordPress" \
+        --admin_user="$WP_ADMIN_USER" \
+        --admin_password="$WP_ADMIN_PASSWORD" \
+        --admin_email="$WP_ADMIN_EMAIL" \
+        --skip-email \
+        --allow-root
+
+	echo "Creating second user..."
+
+	wp user create "$WP_USER" "$WP_USER_EMAIL" \
+	    --user_pass="$WP_PASSWORD" \
+	    --path="$WP_PATH" \
+	    --allow-root
+else
+    echo "WordPress is already installed"
+fi
+
 exec php-fpm8.2 -F
