@@ -1,22 +1,27 @@
 NAME = inception
+
 COMPOSE = docker compose -f srcs/docker-compose.yml
 
-all:
-$(COMPOSE) up -d --build
+all: setup
+	$(COMPOSE) up -d --build
+
+setup:
+	mkdir -p ~/home/amzahir/data/wordpress
+	mkdir -p ~/home/amzahir/data/mariadb
 
 build:
-$(COMPOSE) build
+	$(COMPOSE) build
 
 up:
-$(COMPOSE) up -d
+	$(COMPOSE) up -d
 
 down:
-$(COMPOSE) down
+	$(COMPOSE) down
 
 clean:
-$(COMPOSE) down -v
+	$(COMPOSE) down -v
 
 fclean: clean
-docker system prune -af
+	docker system prune -af
 
 re: fclean all
