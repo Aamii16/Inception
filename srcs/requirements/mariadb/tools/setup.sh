@@ -12,7 +12,6 @@ fi
 
 if [ ! -f "/var/lib/mysql/.init" ]; then
     echo "db doesn't exist"
-    echo "Intialiasing database..."
     service mariadb start
     sleep 1 
 
@@ -21,16 +20,17 @@ if [ ! -f "/var/lib/mysql/.init" ]; then
 
     echo "Creating database..."
     mysql -e "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\`;"
-    echo "Creating User..."
 
+    echo "Creating User..."
     mysql -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';"
+
     echo "Granting Privileges..."
     mysql -e "GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%';"
-    echo "Flushing Privileges..."
 
-    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';"
+    
+    echo ""Altering user..."
+    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';
 
-    mysql -e "FLUSH PRIVILEGES;"
 
     touch /var/lib/mysql/.init
 
