@@ -10,7 +10,7 @@ RUN sed -i 's|^;clear_env = yes|clear_env = no|'  /etc/php/8.2/fpm/pool.d/www.co
 
 RUN curl -o wordpress.tar.gz https://wordpress.org/latest.tar.gz \
     && tar -xzf wordpress.tar.gz \
-    && rm wordpress.tar.gz
+    && rm -rf wordpress.tar.gz
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \

@@ -1,14 +1,20 @@
 #!/bin/bash
 WP_PATH="/var/www/html/wordpress"
+
+MYSQL_PASSWORD=$(cat /run//secrets/db_password)
+
+until mysqladmin ping -h mariadb -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent; do
+		sleep 2
+done
+
 if [ -f /var/www/html/wordpress/wp-config.php ]
 then
 	echo "wp already exist"
 else
+	echo "Configurinn wp..."
+ 
 	MYSQL_PASSWORD=$(cat /run//secrets/db_password)
 	# only wait for mariadb if wp hasn't been configured yet
-	until mysqladmin ping -h mariadb -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent; do
-    		sleep 2
-	done
 	cp wordpress/wp-config-sample.php wordpress/wp-config.php
 
 
@@ -19,8 +25,8 @@ else
 	sed -i "s|define( 'ABSPATH', .* );|define( 'ABSPATH', 'wordpress/' );|" wordpress/wp-config.php
 
 	mv wordpress /var/www/html/
-	chown -R www-data:www-data /var/www/html/wordpress
 fi
+chown -R www-data:www-data /var/www/html/wordpress
 
 
 if ! wp core is-installed \
@@ -57,5 +63,7 @@ then
     wp config set WP_REDIS_PORT 6379 --path="$WP_PATH" --allow-root
     wp redis enable --path="$WP_PATH" --allow-root
 fi
+
+echo "wordpress setup finished..."
 
 exec php-fpm8.2 -F
