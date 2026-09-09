@@ -1,4 +1,5 @@
 #!/bin/bash
+sleep 10
 WP_PATH="/var/www/html/wordpress"
 
 MYSQL_PASSWORD=$(cat /run//secrets/db_password)
