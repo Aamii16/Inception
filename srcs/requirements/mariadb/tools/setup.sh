@@ -28,8 +28,8 @@ if [ ! -f "/var/lib/mysql/.init" ]; then
     mysql -e "GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%';"
 
     
-    echo ""Altering user..."
-    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';
+    echo "Altering user..."
+    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';"
 
 
     touch /var/lib/mysql/.init
