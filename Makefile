@@ -6,6 +6,7 @@ all: setup
 	$(COMPOSE) up -d --build
 
 setup:
+	mkdir -p ~/home/data
 	mkdir -p ~/home/amzahir/data/wordpress
 	mkdir -p ~/home/amzahir/data/mariadb
 
@@ -17,11 +18,13 @@ up:
 
 down:
 	$(COMPOSE) down
+logs:
+	$(COMPOSE) logs -f
 
 clean:
 	$(COMPOSE) down -v
 
 fclean: clean
 	docker system prune -af
-
+	sudo rm -rf ~/home/amzahir/data
 re: fclean all
